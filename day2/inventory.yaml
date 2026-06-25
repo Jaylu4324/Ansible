@@ -1,0 +1,5 @@
+[dev1]
+dev-node-1 ansible_host=192.168.58.141
+
+[dev2]
+dev-node-2 ansible_host=192.168.58.142

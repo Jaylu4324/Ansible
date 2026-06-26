@@ -1,0 +1,10 @@
+---
+  - name: git-playbook
+    hosts: servers
+    become: yes
+    tasks:
+      - name: git
+        yum:
+          name: git
+          state: absent
+          autoremove: yes

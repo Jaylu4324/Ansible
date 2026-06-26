@@ -1,0 +1,31 @@
+---
+  - name: variable-playbook
+    hosts: servers
+    become: yes
+
+    vars:
+      package_to_uninstall: php
+    tasks:
+      - name: "{{package_to_uninstall}}-uninstalling"
+        yum:
+          name: "{{package_to_uninstall}}"
+          state: absent
+          autoremove: yes
+
+  - name: multi-variable
+    hosts: servers
+    become: yes
+    vars:
+      package_1: tree
+      package_2: curl
+    tasks:
+      - name: "uninstalling multi packages"
+        yum:
+          name: "{{package_1}}"
+          state: absent
+          autoremove: yes
+      - name: "uninstalling multi packages"
+        yum:
+          name: "{{package_2}}"
+          state: absent
+          autoremove: yes

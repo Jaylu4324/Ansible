@@ -1,0 +1,10 @@
+---
+  - name: condition-playbook
+    hosts: servers
+    become: yes
+    tasks:
+      - name: git-installing
+        yum:
+          name: git
+          state: present
+        when: ansible_host == "192.168.58.142"

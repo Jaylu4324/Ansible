@@ -1,0 +1,13 @@
+---
+  - name: loop-playbook
+    hosts: servers
+    become: yes
+    tasks:
+      - name: "loop-installing"
+        yum:
+          name: "{{item}}"
+          state: present
+        loop:
+          - nginx
+          - git
+          - wget

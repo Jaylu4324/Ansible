@@ -1,0 +1,6 @@
+---
+  - name: Nginx-role-playbook
+    hosts: servers
+    become: yes
+    roles:
+      - nginx

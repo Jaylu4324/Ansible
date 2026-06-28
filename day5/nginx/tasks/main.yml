@@ -1,0 +1,20 @@
+---
+# tasks file for nginx
+  - name: install nginx
+    yum:
+      name: nginx
+      state: present
+  - name: register exmaple
+    command: hostname
+    register: node_host_name
+  - name: print names
+    debug:
+      msg: "printing hostname via register {{node_host_name}} and variable name {{name}}"
+  - name: copy index.html
+    copy:
+      src: index.html
+      dest: /usr/share/nginx/html/index.html
+      owner: root
+      group: root
+      mode: "0644"
+    notify: Restart nginx

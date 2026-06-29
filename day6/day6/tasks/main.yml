@@ -1,0 +1,33 @@
+---
+# tasks file for day6
+- name: handle change permit root login file
+  tags:
+    - block
+  #lineinfile:
+  # path: /etc/ssh/sshd_config
+  # regexp: "^PermitRootLogin yes"
+  # line: ""
+  
+  #replace:
+  # path: /etc/ssh/sshd_config
+  # regexp: "^PermitRootLogin yes"
+  # replace: ""
+  block:
+    - name: removing block
+      blockinfile:
+        path: /etc/ssh/sshd_config
+        state: absent
+    
+        #block: |
+        #{
+        # name: "jay"
+        # }
+
+  rescue:  
+    - name: Resuce block is running
+      debug:
+        msg:  "Fail while remove the ssh block"
+  always:
+    - name: Always running
+      debug:
+        msg: "This file executed successfully"  

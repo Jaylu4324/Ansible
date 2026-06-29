@@ -1,0 +1,6 @@
+---
+  - name: day-6 ansible playbook
+    hosts: servers
+    become: yes
+    roles:
+      - day6

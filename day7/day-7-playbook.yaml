@@ -1,0 +1,6 @@
+---
+- name: Docker installing playbook
+  hosts: servers
+  become: yes
+  roles:
+    - docker

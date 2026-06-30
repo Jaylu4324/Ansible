@@ -1,0 +1,10 @@
+---
+- name: Install docker in amazon linux
+  dnf:
+    name: docker
+    state: present
+
+  notify:
+  - Enable the docker service
+  - Start the docker service
+

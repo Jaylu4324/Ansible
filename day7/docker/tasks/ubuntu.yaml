@@ -1,0 +1,14 @@
+---
+- name: update Packages
+  apt:
+    update_cache: yes
+
+- name: Installing Docker in ubuntu
+  apt:
+    name: docker.io
+    state: present
+  notify:
+  - Enable the docker service
+  - Start the docker service
+
+

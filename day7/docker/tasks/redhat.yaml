@@ -1,0 +1,63 @@
+---
+- name: Uninstall Conflicts
+  dnf:
+    name:
+      - docker 
+      - docker-client 
+      - docker-client-latest 
+      - docker-common 
+      - docker-latest 
+      - docker-latest-logrotate 
+      - docker-logrotate 
+      - docker-engine 
+      - podman 
+      - runc
+    state: absent
+
+- name: Install Docker plugins
+  dnf: 
+    name: dnf-plugins-core
+    state: present
+
+- name: Add Docker Ce Repo
+  command:   dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+  args: 
+    creates:  /etc/yum.repos.d/docker-ce.repo
+
+- name: Install Docker Ce
+  dnf:
+    name: 
+      - docker-ce 
+      - docker-ce-cli 
+      - containerd.io 
+      - docker-buildx-plugin 
+      - docker-compose-plugin 
+    state: present
+
+- name: Docker daemon
+  copy: 
+    content: |
+      {
+        "iptables": false
+        }
+    dest: /etc/docker/daemon.json
+    mode: "0644"
+
+- name: Reset fail docker service stats
+  command: systemctl reset-failed docker.service
+  changed_when: false
+  failed_when: false
+  notify:
+  - Enable the docker service
+  - Start the docker service
+
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
+
+- name: Restart the docker service
+  systemd:
+    name: docker
+    state: restarted
+    enabled: yes

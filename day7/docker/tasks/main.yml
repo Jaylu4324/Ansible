@@ -1,0 +1,10 @@
+---
+# tasks file for docker
+- name: Include OS Specific YML Files
+  include_tasks: "{{ansible_distribution | lower }}.yaml"
+
+- name: Append user to the docker group
+  user:
+    name: "{{ansible_user}}"
+    groups: docker
+    append: yes
